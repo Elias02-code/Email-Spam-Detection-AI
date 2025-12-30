@@ -14,6 +14,7 @@ This project focuses on building an AI model that detects spam emails using mach
 * Scikit-learn
 * Pandas
 * NumPy
+* NLTK
 
 ## Team Members
 1. Azubuike Uwuma Black
