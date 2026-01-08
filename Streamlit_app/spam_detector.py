@@ -1,5 +1,9 @@
 # Import libraries
 
+import streamlit as st 
+
+st.title("📧 Email Spam Detector")
+st.write("This app uses Machine Learning to identify spam messages.")
 import pandas as pd
 import numpy as np
 import re
@@ -16,7 +20,8 @@ import joblib
 
 # Load the SMS spam dataset with proper text encoding
 df = pd.read_csv("Streamlit_app/spam.csv", encoding='latin1')
-print(df.head())
+st.subheader("Dataset Preview")
+st.dataframe(df.head())
 print(df.shape)
 print(df.columns)
 
@@ -338,6 +343,27 @@ comparison_df = pd.DataFrame({
 print(comparison_df)
 
 print(joblib.dump(nb_model, "naive_bayes_model.pkl"))
+
+st.divider()
+st.header("Test the Model")
+user_input = st.text_area("Enter an email or SMS message:")
+
+if st.button("Predict"):
+    if user_input:
+        # Transform the input using your vectorizer
+        cleaned = clean_text(user_input)
+        vectorized = vectorizer.transform([cleaned])
+        
+        # Predict using the model
+        prediction = model_weighted.predict(vectorized)
+        result = "SPAM" if prediction[0] == 1 else "HAM (Safe)"
+        
+        if prediction[0] == 1:
+            st.error(f"Prediction: {result}")
+        else:
+            st.success(f"Prediction: {result}")
+    else:
+        st.warning("Please enter a message first.")
 
 
 
