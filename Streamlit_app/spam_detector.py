@@ -15,7 +15,8 @@ from sklearn.naive_bayes import MultinomialNB
 import joblib
 
 # Load the SMS spam dataset with proper text encoding
-df = pd.read_csv("Streamlit_app/spam.csv", encoding='latin1')print(df.head())
+df = pd.read_csv("Streamlit_app/spam.csv", encoding='latin1')
+print(df.head())
 print(df.shape)
 print(df.columns)
 
@@ -337,5 +338,6 @@ comparison_df = pd.DataFrame({
 print(comparison_df)
 
 print(joblib.dump(nb_model, "naive_bayes_model.pkl"))
+
 
 
