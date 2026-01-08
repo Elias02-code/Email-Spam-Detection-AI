@@ -4,4 +4,3 @@ sckikit-learn
 nltk
 numpy
 pandas
-re
