@@ -59,10 +59,10 @@ df['label'] = df['label'].map({'ham': 0, 'spam': 1})
 print(df['label'])
 
 # Download NLTK data... Commented due to network instabilities at the time.
-# nltk.download('stopwords')
-# nltk.download('punkt')
-# nltk.download('wordnet')
-# nltk.download('omw-1.4')
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 # Text Preprocessing Function... The newly implemented format using ENGLISH_STOP_WORDS works fine as well.
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
@@ -338,3 +338,4 @@ comparison_df = pd.DataFrame({
 print(comparison_df)
 
 print(joblib.dump(nb_model, "naive_bayes_model.pkl"))
+
