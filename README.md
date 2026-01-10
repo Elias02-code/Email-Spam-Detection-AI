@@ -9,6 +9,7 @@ This project focuses on building an AI model that detects spam emails using mach
 * Classify emails as spam or non-spam
 * Apply NLP techniques for text processing
 * Train and evaluate a machine learning model
+* **The streamlit app UI has been** 
 
 ## Tools & Technologies
 * Python (3.10)
@@ -16,6 +17,7 @@ This project focuses on building an AI model that detects spam emails using mach
 * Pandas
 * NumPy
 * NLTK
+* Streamlit
 
 ## Team Members
 1. Azubuike Uwuma Black
@@ -38,4 +40,4 @@ This project focuses on building an AI model that detects spam emails using mach
 18. ⁠Josiah Bulus
 
 ## Status
-Project in progress.
+Project completed.
