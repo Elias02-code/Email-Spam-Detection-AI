@@ -1,6 +1,12 @@
 # Email-Spam-Detection-AI
 An AI-based email spam detection system using machine learning and natural language processing techniques to classify emails as spam or legitimate(ham).
-# N.B the code can be cloned directly to the VScode IDE. 
+
+# Overview  
+Spam emails are a major threat to productivity and security. This project focuses on building a 
+machine learning model to classify emails as Spam or Ham (Not Spam) using Natural Language 
+Processing (NLP) techniques. The system helps automate email filtering and reduce unwanted 
+messages. In addition to model development, an interactive web application was built using 
+Streamlit to allow users to input text and receive real-time spam classification results. 
 
 ## Overview
 This project focuses on building an AI model that detects spam emails using machine learning techniques.
@@ -12,7 +18,7 @@ This project focuses on building an AI model that detects spam emails using mach
 * **The streamlit app UI has been integrated into the code.
 * ** Check it out here: https://email-spam-detection-ai-bwtnqiqkwtbw6dcakwmhmb.streamlit.app/
 
-
+# N.B the code can be cloned directly to the VScode IDE. 
 
 ## Tools & Technologies
 * Python (3.10)
