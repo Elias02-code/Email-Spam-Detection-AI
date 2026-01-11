@@ -16,7 +16,7 @@ This project focuses on building an AI model that detects spam emails using mach
 * **The streamlit app UI has been integrated into the code.
 * ** Check it out here: https://email-spam-detection-ai-bwtnqiqkwtbw6dcakwmhmb.streamlit.app/
 
-# N.B the code can be cloned directly to the VScode IDE. 
+## N.B the code can be cloned directly to the VScode IDE. 
 
 ## Tools & Technologies
 * Python (3.10)
