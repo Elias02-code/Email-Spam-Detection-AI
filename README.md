@@ -9,7 +9,7 @@ This project focuses on building an AI model that detects spam emails using mach
 * Classify emails as spam or non-spam
 * Apply NLP techniques for text processing
 * Train and evaluate a machine learning model
-* **The streamlit app UI has been integrated to the code.
+* **The streamlit app UI has been integrated into the code.
 * ** Check it out here: https://email-spam-detection-ai-bwtnqiqkwtbw6dcakwmhmb.streamlit.app/
 
 
