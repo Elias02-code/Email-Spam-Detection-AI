@@ -1,1 +1,70 @@
+# Import libraries
 
+import streamlit as st 
+
+st.title("📧 Email Spam Detector")
+st.write("This app uses Machine Learning to identify spam messages.")
+import pandas as pd
+import numpy as np
+import re
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.naive_bayes import MultinomialNB
+import joblib
+
+# Load the SMS spam dataset with proper text encoding
+df = pd.read_csv("Streamlit_app/spam.csv", encoding='latin1')
+st.subheader("Dataset Preview")
+st.dataframe(df.head())
+print(df.shape)
+print(df.columns)
+
+# Clean unnecessary columns and rename the remaining columns
+df = df.drop(['Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4'], axis=1)
+df = df[['v1', 'v2']]
+df.columns = ['label', 'message']
+
+# Display column names to confirm relevant features
+print(df.columns)
+print(df.shape)
+
+# Check the number of duplicate rows in the dataset
+print(df.duplicated().sum())
+
+# Remove duplicate messages to avoid model bias
+df = df.drop_duplicates()
+
+# Confirm removed duplicates
+print(df.shape)
+
+# Check for missing rows
+print(df.isnull().sum())
+
+# Display the count of spam and ham messages after cleaning
+print(df['label'].value_counts())
+
+# Create a new feature representing message length
+df['message_length'] = df['message'].apply(len)
+print(df['message_length'])
+print(df.columns)
+
+# Generate descriptive statistics of message length by class
+print(df.groupby('label')['message_length'].describe())
+
+# Map labels to numeric (ham: 0, spam: 1)
+df['label'] = df['label'].map({'ham': 0, 'spam': 1})
+
+# Confirm mapped feature
+print(df['label'])
+
+# Download NLTK data... Commented due to network instabilities at the time.
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
