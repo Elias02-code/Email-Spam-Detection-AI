@@ -111,3 +111,53 @@ print(df.columns)
 print("\nExample cleaning:")
 print("Original:", df['message'].iloc[0])
 print("Cleaned :", df['cleaned_message'].iloc[0])
+
+# Split dataset into training and testing sets
+X_train_text, X_test_text, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,                          # 80% data for training and 20% for testing
+    random_state=42,                        # ensures reproducibility
+    stratify=y                              # important for imbalanced datasets
+
+    )
+
+# Initialize TF-IDF Vectorizer
+vectorizer = TfidfVectorizer(
+    max_features=5000,                       # Limit vocabulary size, keeps only the top 5000 most informative words/phrases
+    ngram_range=(1, 2),                      # Include unigram and bigrams too (e.g., "free entry")
+    min_df=2,                                # Ignore terms that appear in fewer than 2 messages
+    max_df=0.95                              # Ignore terms in >95% of documents, such words are too common to be useful
+)
+
+# Fit and transform train data
+X_train = vectorizer.fit_transform(X_train_text)
+
+# Only transform test data
+X_test = vectorizer.transform(X_test_text)
+
+# Confirm vectorizer worked
+print("Shape of X_train:", X_train.shape)
+print("Shape of X_test:", X_test.shape)
+
+# To also confirm the vectorizer worked
+print(len(vectorizer.vocabulary_))
+print(list(vectorizer.vocabulary_.keys())[:20])
+
+# Confirm numeric features were generated
+print(X_train[0])
+
+# Defining the weight model(using Logistic Regression)
+model_weighted = LogisticRegression(class_weight='balanced', random_state=42)
+print(model_weighted.fit(X_train, y_train))
+
+# Defining the y_pred(weighted)
+y_pred_weighted = model_weighted.predict(X_test)
+
+# Analysing the distribution of predicted labels
+y_pred_series = pd.Series(y_pred_weighted)
+print("Distribution of predicted labels:")
+print(y_pred_series.value_counts())
+
+# Analysing the distribution of actual labels in y_test:
+print("Distribution of actual labels in y_test:")
+print(y_test.value_counts())
