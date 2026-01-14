@@ -161,3 +161,106 @@ print(y_pred_series.value_counts())
 # Analysing the distribution of actual labels in y_test:
 print("Distribution of actual labels in y_test:")
 print(y_test.value_counts())
+
+# Calculating the overall correctness of the model
+accuracy = accuracy_score(y_test, y_pred_weighted)
+
+# Calculating how many predicted spam emails were actually spam
+precision = precision_score(y_test, y_pred_weighted)
+
+# Calculating how many real spam emails were correctly detected
+recall = recall_score(y_test, y_pred_weighted)
+
+# Balance between precision and recall
+f1 = f1_score(y_test, y_pred_weighted)
+
+print("Logistic Regression Evaluation Metrics:")
+
+# evaluating the prediction using Accuracy_score
+print("Accuracy:", accuracy_score(y_test, y_pred_weighted))
+# evaluating the prediction using Precision_score
+print("Precision:", precision_score(y_test, y_pred_weighted))
+# evaluating the prediction using Recall_score
+print("Recall:", recall_score(y_test, y_pred_weighted))
+# evaluating the prediction using F1_score
+print("F1_score:", f1_score(y_test, y_pred_weighted))
+
+# evaluating the prediction using confusion_matrix
+cm = confusion_matrix(y_test, y_pred_weighted)
+print("Confusion Matrix:")
+print(cm)
+
+# Interpreting the Confusion Matrix
+
+# The confusion matrix provides a detailed breakdown of the model's performance:
+  #True Negatives (TN): The number of 'ham' messages correctly identified as 'ham'.
+  #False Positives (FP): The number of 'ham' messages incorrectly identified as 'spam' (Type I error).
+  #False Negatives (FN): The number of 'spam' messages incorrectly identified as 'ham' (Type II error).
+  #True Positives (TP): The number of 'spam' messages correctly identified as 'spam'.
+
+# For a 2x2 matrix, it's typically structured as:
+
+#[[TN, FP],
+ #[FN, TP]]
+
+ #This matrix is structured as follows, where 0 represents 'ham' and 1 represents 'spam':
+
+    #The rows represent the actual classes.
+    #The columns represent the predicted classes.
+
+#Here's what each number means:
+
+    #True Negatives (TN): 890
+        #These are the 890 'ham' messages that were actually ham and were correctly predicted as ham by the model.
+
+    #False Positives (FP): 13
+        #These are the 13 'ham' messages that were actually ham but were incorrectly predicted as spam by the model. This is a Type I error.
+
+    #False Negatives (FN): 9
+        #These are the 9 'spam' messages that were actually spam but were incorrectly predicted as ham by the model. This is a Type II error, meaning the model missed these spam messages.
+
+    #True Positives (TP): 122
+        #These are the 122 'spam' messages that were actually spam and were correctly predicted as spam by the model.
+
+#In summary:
+
+    #The top-left 890 means 888 actual ham messages were correctly identified as ham.
+    #The top-right 13 means 13 actual ham messages were wrongly identified as spam.
+    #The bottom-left 9 means 9 actual spam messages were wrongly identified as ham.
+    #The bottom-right 122 means 122 actual spam messages were correctly identified as spam.
+
+# Displaying detailed classification report
+print("Classification Report (Logistic Regression):")
+print(classification_report(y_test, y_pred_weighted))
+
+# Store Logistic Regression results for comparison with Naive Bayes
+logistic_regression_results = {
+    "Accuracy": accuracy,
+    "Precision": precision,
+    "Recall": recall,
+    "F1 Score": f1,
+}
+
+print(logistic_regression_results)
+
+# Testing the Logistic Regression model on a few custom messages
+sample_messages = [
+    "Congratulations! You have won a free prize. Click now to claim it.",
+    "Are we still having lunch by noon?",
+    "Urgent! Your account has been selected for a cash reward.",
+    "Can you send me the meeting notes later today?"
+]
+
+#Transformed the sample messages using the same vectorizer that was fitted on the training data
+sample_messages_vectorized = vectorizer.transform(sample_messages)
+
+# Predict whether each message is spam or ham using Logistic Regression
+sample_predictions_weighted = model_weighted.predict(sample_messages_vectorized)
+
+for message, prediction in zip(sample_messages, sample_predictions_weighted):
+    label = "Spam" if prediction == 1 else "Ham"
+    print(f"Message: \"{message}\"")
+    print(f"Predicted Label: {label}\n")
+
+print(joblib.dump(model_weighted, "logistic_model.pkl"))
+print(joblib.dump(vectorizer, "tfidf.pkl"))
