@@ -314,3 +314,32 @@ print(naive_bayes_results)
 # Display classification report for Naive Bayes
 print("Classification Report (Naive Bayes):")
 print(classification_report(y_test, y_pred_nb))
+
+# Testing the Naive Bayes model on a few custom messages. This allows us to see how the model classifies real-world examples outside of the original dataset.
+sample_messages = [
+    "Congratulations! You have won a free prize. Click now to claim it.",
+    "Are we still having lunch by noon?",
+    "Urgent! Your account has been selected for a cash reward.",
+    "Can you send me the meeting notes later today?"
+]
+
+# Transforming the sample messages using the same vectorizer that was fitted on the training data
+sample_messages_vectorized = vectorizer.transform(sample_messages)
+
+# Predicting whether each message is spam or ham
+sample_predictions = nb_model.predict(sample_messages_vectorized)
+
+# Displaying the results
+for message, prediction in zip(sample_messages, sample_predictions):
+    label = "Spam" if prediction == 1 else "Ham"
+    print(f"Message: \"{message}\"")
+    print(f"Predicted Label: {label}\n")
+
+    # Creating a comparison table between Logistic Regression and Naive Bayes
+comparison_df = pd.DataFrame({
+    "Logistic Regression": logistic_regression_results,
+    "Naive Bayes": naive_bayes_results
+})
+print(comparison_df)
+
+print(joblib.dump(nb_model, "naive_bayes_model.pkl"))
