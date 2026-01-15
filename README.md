@@ -14,7 +14,7 @@ This project focuses on building an AI model that detects spam emails using mach
 * Apply NLP techniques for text processing
 * Train and evaluate a machine learning model
 * **The streamlit app UI has been integrated into the code.
-* ** Check it out here: https://email-spam-detection-ai-bwtnqiqkwtbw6dcakwmhmb.streamlit.app/
+* ** Check it out here: https://spamdetectorpy-kha6gkomburhzqjoyroutx.streamlit.app/
 
 ## N.B the code can be cloned directly to the VScode IDE.
 URL: https://github.com/Elias02-code/Email-Spam-Detection-AI.git
