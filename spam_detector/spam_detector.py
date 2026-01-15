@@ -264,3 +264,53 @@ for message, prediction in zip(sample_messages, sample_predictions_weighted):
 
 print(joblib.dump(model_weighted, "logistic_model.pkl"))
 print(joblib.dump(vectorizer, "tfidf.pkl"))
+
+# Initialize the Multinomial Naive Bayes model, which is suitable for text-based classification tasks such as email spam detection where features represent word frequencies.
+nb_model = MultinomialNB()
+
+# Training the Naive Bayes model using the training dataset.
+print(nb_model.fit(X_train, y_train))
+
+# Generating predictions on the test dataset.
+y_pred_nb = nb_model.predict(X_test)
+
+# Converting predictions to a pandas Series to examine the distribution of predicted labels. This helps identify whether the model is biased toward predicting spam or non-spam emails.
+y_pred_nb_series = pd.Series(y_pred_nb)
+print("Distribution of predicted labels (Naive Bayes):")
+print(y_pred_nb_series.value_counts())
+
+# Generating the confusion matrix to evaluate the classification performance of the Naive Bayes model.
+cm_nb = confusion_matrix(y_test, y_pred_nb)
+print("Confusion Matrix (Naive Bayes):")
+print(cm_nb)
+
+# Calculating overall correctness of the model
+accuracy_nb = accuracy_score(y_test, y_pred_nb)
+
+# Calculating how many predicted spam emails were actually spam
+precision_nb = precision_score(y_test, y_pred_nb)
+
+# Calculating how many real spam emails were correctly detected
+recall_nb = recall_score(y_test, y_pred_nb)
+
+# Calculating the b alance between precision and recall
+f1_nb = f1_score(y_test, y_pred_nb)
+
+print("Naive Bayes Evaluation Metrics:")
+print(f"Accuracy: {accuracy_nb:.4f}")
+print(f"Precision: {precision_nb:.4f}")
+print(f"Recall: {recall_nb:.4f}")
+print(f"F1 Score: {f1_nb:.4f}")
+
+# Storing Naive Bayes evaluation results for comparison
+naive_bayes_results = {
+    "Accuracy": accuracy_nb,
+    "Precision": precision_nb,
+    "Recall": recall_nb,
+    "F1 Score": f1_nb
+}
+print(naive_bayes_results)
+
+# Display classification report for Naive Bayes
+print("Classification Report (Naive Bayes):")
+print(classification_report(y_test, y_pred_nb))
